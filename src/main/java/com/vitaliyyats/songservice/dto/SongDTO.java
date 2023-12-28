@@ -4,11 +4,9 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Data;
-import lombok.ToString;
 
 @Data
 @Builder
-@ToString
 public class SongDTO {
     @NotBlank
     private String name;
