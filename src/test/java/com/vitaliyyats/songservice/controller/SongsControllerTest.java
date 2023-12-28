@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
@@ -34,6 +35,7 @@ class SongsControllerTest {
     @Test
     void shouldCreateSong() {
         ResponseEntity<SongCreationResponse> response = restTemplate.postForEntity("/songs", songDTO(), SongCreationResponse.class);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         var savedSong = songRepository.findById(Objects.requireNonNull(response.getBody()).getId());
         assertThat(savedSong.isPresent()).isEqualTo(true);
     }
